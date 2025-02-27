@@ -1,8 +1,8 @@
 # ECGR-5106 Homework 3
 
 ## Student Information
-**Name:** Your Name  
-**Student ID:** Your Student ID  
+**Name:** Yang Xu  
+**Student ID:** 801443244
 **Homework Number:** 3  
 
 ## GitHub Repository
