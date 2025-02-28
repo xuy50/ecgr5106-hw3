@@ -49,7 +49,7 @@ Below are final metrics after 50 epochs for each sequence length and each model.
 <details>
 <summary>Complete Training Logs (Click to Expand)</summary>
 
-```bash
+```text
 Training RNN with sequence length = 10, Parameter count: 44589 
 Epoch 10/50, Loss: 2.2351, Val Loss: 2.3210, Val Acc: 0.3774 
 Epoch 20/50, Loss: 1.7527, Val Loss: 2.0845, Val Acc: 0.4214 
@@ -90,7 +90,7 @@ Training completed in 1.48 seconds
 <details>
 <summary>Complete Training Logs (Click to Expand)</summary>
 
-```bash
+```text
 Training RNN with sequence length = 20, Parameter count: 44589 
 Epoch 10/50, Loss: 2.2314, Val Loss: 2.4080, Val Acc: 0.3726 
 Epoch 20/50, Loss: 1.7657, Val Loss: 2.1556, Val Acc: 0.4400 
@@ -131,7 +131,7 @@ Training completed in 3.25 seconds
 <details>
 <summary>Complete Training Logs (Click to Expand)</summary>
 
-```bash
+```text
 Training RNN with sequence length = 30, Parameter count: 44589 
 Epoch 10/50, Loss: 2.2425, Val Loss: 2.4831, Val Acc: 0.3277 
 Epoch 20/50, Loss: 1.7770, Val Loss: 2.2735, Val Acc: 0.4017 
