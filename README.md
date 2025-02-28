@@ -175,7 +175,7 @@ Training completed in 4.78 seconds
 
 3. **Validation Accuracy**  
    - For sequence length = 10, **GRU** has the best accuracy (0.5199).  
-   - For sequence length = 20, **RNN** surprisingly achieves the best final validation accuracy (0.5158).  
+   - For sequence length = 20, **RNN** achieves the best final validation accuracy (0.5158).  
    - For sequence length = 30, **GRU** performs best (0.4926).  
    - LSTM performs well but does not consistently achieve the highest accuracy under these hyperparameters.
 
