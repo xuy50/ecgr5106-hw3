@@ -194,17 +194,94 @@ Training completed in 4.78 seconds
 
 ---
 
-## Problem 2: Tiny Shakespeare Dataset (Placeholder)
-**(To be completed as per assignment instructions.)**
+## Problem 2: Tiny Shakespeare Dataset
 
-1. Build LSTM and GRU models for the tiny Shakespeare dataset.  
-2. Compare training loss, validation accuracy, execution time, and model complexity for sequence lengths 20 and 30.  
-3. Adjust hyperparameters and analyze their influence on performance.  
-4. Increase sequence length to 50 and report results.
+### Introduction
+In **Problem 2**, we work with the tiny Shakespeare dataset. We build and compare **LSTM** and **GRU** models at a character level, evaluating their performance on different sequence lengths (20, 30, and 50) and with various hyperparameter configurations (e.g., number of layers, hidden size). The primary goals are:
 
-*(Analysis and results will be added here.)*
+1. **Compare training loss, validation accuracy, execution time, and model complexity** for sequence lengths of **20** and **30**.  
+2. **Adjust hyperparameters** (fully connected network size, number of hidden layers, number of hidden states) and observe changes in performance, training/inference time, and computational perplexity.  
+3. **Extend sequence length to 50** and report final accuracy and model complexity.  
 
----
+### Implementation Details
 
-**End of Report**  
-Please refer to the GitHub repository for the complete source code, including data loading, model definitions, and training scripts. 
+1. **Data Loading**  
+   - The dataset is downloaded from the [tiny Shakespeare](https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt) URL.  
+   - We encode each character as an integer and split the dataset into training (80%) and validation (20%) sets.  
+   - We create sequences of length *L* (where *L* is 20, 30, or 50) and use the next character as the target label.
+
+2. **Models**  
+   - **ShakespeareLSTM**: Uses an `nn.Embedding` layer followed by `nn.LSTM` and a final linear layer.  
+   - **ShakespeareGRU**: Same overall structure but replaces the LSTM cell with `nn.GRU`.  
+   - Hyperparameters we varied include:  
+     - **Hidden Size**: 128 or 256  
+     - **Number of Layers**: 1 or 2  
+     - **Sequence Length**: 20, 30, 50  
+
+3. **Training Setup**  
+   - **Loss Function**: `CrossEntropyLoss`  
+   - **Optimizer**: Adam (learning rate = 0.001)  
+   - **Batch Size**: 128  
+   - **Epochs**: 20  
+   - **Metrics**: Training Loss, Validation Loss, Validation Accuracy, Training Time, and Parameter Count  
+
+### Results and Analysis
+
+Below are the training curves for **training loss**, **validation loss**, and **validation accuracy** across all experiments. We tested multiple configurations of LSTM and GRU with different sequence lengths, hidden sizes, and numbers of layers.
+
+- **Training Loss (All Experiments)**  
+  ![Training Loss (All Experiments)](images/p2_train_loss.png)
+
+- **Validation Loss (All Experiments)**  
+  ![Validation Loss (All Experiments)](images/p2_vali_loss.png)
+
+- **Validation Accuracy (All Experiments)**  
+  ![Validation Accuracy (All Experiments)](images/p2_vali_accuracy.png)
+
+#### Final Summary of Experiments
+
+The table below shows the final training loss, validation loss, validation accuracy, parameter count, and training time for each configuration. Note that **SeqLen** refers to the sequence length (20, 30, or 50), **HiddenSize** is the hidden state dimension, and **Layers** is the number of LSTM/GRU layers.
+
+| Model | SeqLen | HiddenSize | Layers |    Params   | Final Train Loss | Final Val Loss | Final Val Acc |  Training Time (s) |
+|:-----:|:------:|:----------:|:------:|:-----------:|:----------------:|:--------------:|:-------------:|:------------------:|
+| LSTM  |   20   |    128     |   1    |   148801    |       1.3438     |     1.4039     |     0.5721    |       169.94       |
+| GRU   |   20   |    128     |   1    |   115777    |       1.4035     |     1.4408     |     0.5614    |       162.34       |
+| LSTM  |   30   |    128     |   1    |   148801    |       1.3363     |     1.3933     |     0.5760    |       199.60       |
+| GRU   |   30   |    128     |   1    |   115777    |       1.3994     |     1.4357     |     0.5648    |       180.45       |
+| LSTM  |   20   |    128     |   2    |   280897    |       1.2504     |     1.3594     |     0.5843    |       232.57       |
+| GRU   |   20   |    128     |   2    |   214849    |       1.3334     |     1.3945     |     0.5729    |       183.21       |
+| LSTM  |   20   |    256     |   1    |   420289    |       1.2263     |     1.3646     |     0.5835    |       215.36       |
+| GRU   |   20   |    256     |   1    |   321473    |       1.3959     |     1.4412     |     0.5607    |       216.45       |
+| LSTM  |   50   |    128     |   1    |   148801    |       1.3340     |     1.3864     |     0.5771    |       246.05       |
+| GRU   |   50   |    128     |   1    |   115777    |       1.3830     |     1.4268     |     0.5671    |       208.60       |
+
+#### Observations
+
+1. **Sequence Length (20 vs 30 vs 50)**  
+   - There is no strict monotonic relationship between sequence length and final accuracy. Sometimes 20 or 30 yields better results than 50.  
+   - Longer sequences typically increase training time, as more time steps must be processed.
+
+2. **LSTM vs. GRU**  
+   - **LSTM** often achieves slightly higher validation accuracy but may take longer to train.  
+   - **GRU** is more parameter-efficient compared to LSTM with the same hidden size and layers, which can result in shorter training times.
+
+3. **Hyperparameter Adjustments**  
+   - **Increasing Hidden Size**: Models with hidden size = 256 tend to have higher accuracy, but also show increased training time and parameter count.  
+   - **Multiple Layers**: Stacking 2 layers (LSTM or GRU) often improves accuracy but also increases computational cost. For example, the 2-layer LSTM (SeqLen=20, HiddenSize=128) reached **0.5843** final validation accuracy at the cost of a higher parameter count (280k) and longer training time (232.57s).
+
+4. **Training vs. Validation Loss**  
+   - Both LSTM and GRU show steadily decreasing training and validation losses, but validation accuracy saturates or slowly increases, indicating the models are learning effectively.
+
+5. **Inference and Practical Considerations**  
+   - Larger hidden sizes and multiple layers can yield better performance, but the increased parameter count also raises memory usage and inference time.  
+   - Depending on the application constraints, a simpler 1-layer GRU with hidden size 128 might offer a good balance of speed and accuracy.
+
+### Conclusion
+In **Problem 2**, we observed the trade-offs between LSTM and GRU under different sequence lengths and hyperparameter settings. Key takeaways include:
+
+- **LSTM** can achieve slightly better accuracy in some configurations but typically requires more parameters and training time.  
+- **GRU** is more parameter-efficient and trains somewhat faster, though sometimes with slightly lower accuracy.  
+- **Increasing the sequence length** from 20 to 50 did not guarantee improved accuracy; model capacity, data size, and hyperparameters all influence final results.  
+- **Increasing hidden size or stacking multiple layers** can boost accuracy but at the cost of increased model complexity and training time.
+
+Overall, these experiments highlight how the choice of recurrent architecture (LSTM vs. GRU), sequence length, and hyperparameters can significantly affect both performance and computational overhead.
