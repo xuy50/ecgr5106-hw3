@@ -197,7 +197,7 @@ Training completed in 4.78 seconds
 ## Problem 2: Tiny Shakespeare Dataset
 
 ### Introduction
-In **Problem 2**, we work with the tiny Shakespeare dataset. We build and compare **LSTM** and **GRU** models at a character level, evaluating their performance on different sequence lengths (20, 30, and 50) and with various hyperparameter configurations (e.g., number of layers, hidden size). The primary goals are:
+In **Problem 2**, work with the tiny Shakespeare dataset. Build and compare **LSTM** and **GRU** models at a character level, evaluating their performance on different sequence lengths (20, 30, and 50) and with various hyperparameter configurations (e.g., number of layers, hidden size). The primary goals are:
 
 1. **Compare training loss, validation accuracy, execution time, and model complexity** for sequence lengths of **20** and **30**.  
 2. **Adjust hyperparameters** (fully connected network size, number of hidden layers, number of hidden states) and observe changes in performance, training/inference time, and computational perplexity.  
