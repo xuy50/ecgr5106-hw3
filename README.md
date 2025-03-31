@@ -6,7 +6,7 @@
 **Homework Number:** 3  
 
 ## GitHub Repository
-[https://github.com/yourusername/ecgr5106-hw3](https://github.com/yourusername/ecgr5106-hw3)
+[https://github.com/xuy50/ecgr5106-hw3](https://github.com/xuy50/ecgr5106-hw3)
 
 ---
 
